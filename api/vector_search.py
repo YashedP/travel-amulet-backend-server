@@ -13,15 +13,19 @@ CORS(app)
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
     # Get the 'text' parameter from the request
-    text = request.args.get('prompt')
+    prompt = request.args.get('prompt')
+    crime_index = request.args.get('crime_index', type=float)
+    download_speed = request.args.get('download_speed', type=int)
+    tap_water_index = request.args.get('tap_water_index', type=float)
+    
 
     # Check if the 'text' parameter is provided
-    if text:
-        return jsonify({"message": f"Country: {get_countries(text)}"}), 200
+    if prompt and crime_index and download_speed and tap_water_index:
+        return jsonify({"message": f"Country: {get_countries(prompt, crime_index, download_speed, tap_water_index)}"}), 200
     else:
         return jsonify({"error": "No string provided"}), 400
     
-def get_countries(prompt):
+def get_countries(prompt, crime_index, download_speed, tap_water_index):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
 
     embeddings = OpenAIEmbeddings()
@@ -35,13 +39,20 @@ def get_countries(prompt):
     )
 
     # Finds the most similar document to the query
+    # filters = {
+    #     "Crime_Index":{"$lt": 4.5},
+    #     "Download_Speed":{"$gt": 100},
+    #     "Tap_Water_Index":{"$gt": 80},
+    # }
+    
     filters = {
-        "Crime_Index":{"$lt": 4.5},
-        "Download_Speed":{"$gt": 100},
-        "Tap_Water_Index":{"$gt": 80},
+        "Crime_Index": {"$lt": crime_index},1
+        "Download_Speed": {"$gt": download_speed},
+        "Tap_Water_Index": {"$gt": tap_water_index},
     }
 
     docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=1)
     # docs_with_score = vector_store.similarity_search_with_relevance_scores(query, k=20)
     for doc, score in docs_with_score:
-        return doc.page_content
+        # return doc.page_content
+        return doc.metadata['Country']
