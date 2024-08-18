@@ -2,8 +2,8 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-@app.route('/api/index', methods=['GET'])
-def check_string():
+@app.route('/api/vector_search', methods=['GET'])
+def vector_search():
     # Get the 'text' parameter from the request
     text = request.args.get('text')
 
