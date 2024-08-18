@@ -46,7 +46,7 @@ def get_countries(prompt, crime_index, download_speed, tap_water_index):
     # }
     
     filters = {
-        "Crime_Index": {"$lt": crime_index},1
+        "Crime_Index": {"$lt": crime_index},
         "Download_Speed": {"$gt": download_speed},
         "Tap_Water_Index": {"$gt": tap_water_index},
     }
