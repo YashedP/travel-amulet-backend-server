@@ -35,14 +35,13 @@ def get_countries(prompt):
     )
 
     # Finds the most similar document to the query
-    query = "Find a country with people that speak English and Spanish, with warm weather, with extra hot spicy food, with people that follow Christianity, with a crime index of under 6, with landmarks, with many places for hiking, with broadband download speed of over 50 Mbps, with a tap water index of over 60, with no ongoing conflicts or regional tensions, with political stability and no political tensions, with a government that has a voting system, not in the continents of North America, and specifically not Bangladesh, Libya, Lebanon, Afghanistan, Somalia, Iran, Yemen, Syria, Russia, Myanmar, Venezuela, Iraq, South Sudan, Mali, Central African Republic, Burkina Faso, Haiti, Belarus, North Korea, Ukraine, Sudan, Mexico, Israel, or Palestine State."
     filters = {
         "Crime_Index":{"$lt": 4.5},
         "Download_Speed":{"$gt": 100},
         "Tap_Water_Index":{"$gt": 80},
     }
 
-    docs_with_score = vector_store.similarity_search_with_relevance_scores(query, filter=filters, k=1)
+    docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=1)
     # docs_with_score = vector_store.similarity_search_with_relevance_scores(query, k=20)
     for doc, score in docs_with_score:
         return doc.page_content
