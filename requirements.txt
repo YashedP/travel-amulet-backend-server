@@ -1,2 +1,10 @@
 Flask==3.0.3
 flask-cors
+sqlalchemy
+pymysql
+sentence-transformers
+tidb-vector
+python-dotenv
+langchain_community
+langchain_openai
+langchain_text_splitters
