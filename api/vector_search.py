@@ -21,7 +21,7 @@ def vector_search():
 
     # Check if the 'text' parameter is provided
     if prompt is not None and crime_index is not None and download_speed is not None and tap_water_index is not None:
-        return jsonify({"countries": f"{get_countries(prompt, crime_index, download_speed, tap_water_index)}"}), 200
+        return jsonify({get_countries(prompt, crime_index, download_speed, tap_water_index)}), 200
     else:
         return jsonify({"error": "No string provided"}), 400
     
