@@ -21,7 +21,7 @@ def vector_search():
 
     # Check if the 'text' parameter is provided
     if prompt is not None and crime_index is not None and download_speed is not None and tap_water_index is not None:
-        return jsonify({"message": f"Country: {get_countries(prompt, crime_index, download_speed, tap_water_index)}"}), 200
+        return jsonify({"countries": f"Country: {get_countries(prompt, crime_index, download_speed, tap_water_index)}"}), 200
     else:
         return jsonify({"error": "No string provided"}), 400
     
@@ -53,6 +53,9 @@ def get_countries(prompt, crime_index, download_speed, tap_water_index):
 
     docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=1)
     # docs_with_score = vector_store.similarity_search_with_relevance_scores(query, k=20)
+    countries = []
     for doc, score in docs_with_score:
         # return doc.page_content
-        return doc.metadata['Country']
+        countries.append(doc.metadata['Country'])
+    
+    return countries
