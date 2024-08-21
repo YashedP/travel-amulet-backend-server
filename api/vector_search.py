@@ -21,11 +21,12 @@ def vector_search():
     tap_water_index = request.args.get('tap_water_index', type=float)
     continent_list = json.loads(request.args.get('continent_list', type=str))
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
+    lgbtq_rank = request.args.get('lgbtq_rank', type=float)
 
     # Check if the 'text' parameter is provided
-    if prompt is not None and crime_index is not None and download_speed is not None and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
+    if prompt is not None and crime_index is not None and download_speed is not None and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None and lgbtq_rank is not None:
         try:
-            country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
+            country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries, lgbtq_rank)
         except Exception as e:
             return jsonify({"error": str(e)}), 500
         return jsonify({"countries": country}), 200
@@ -37,9 +38,10 @@ def vector_search():
                         "mobile_download_speed": mobile_download_speed,
                         "tap_water_index": tap_water_index,
                         "continent_list": continent_list,
-                        "blacklist_countries": blacklist_countries}), 400
+                        "blacklist_countries": blacklist_countries,
+                        "lgbtq_rank": lgbtq_rank}), 400
     
-def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
+def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries, lgbtq_rank):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
 
     embeddings = OpenAIEmbeddings()
@@ -59,7 +61,8 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
         "Mobile_Download_Speed": {"$gt": mobile_download_speed},
         "Tap_Water_Index": {"$gt": tap_water_index},
         "Continent": {"$nin": continent_list},
-        "Country": {"$nin": blacklist_countries}
+        "Country": {"$nin": blacklist_countries},
+        "LGBTQ_Rank": {"$lt": lgbtq_rank},
     }
 
     docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=10)
