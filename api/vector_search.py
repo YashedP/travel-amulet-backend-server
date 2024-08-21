@@ -27,7 +27,7 @@ def vector_search():
         country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         return jsonify({"countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 200
     else:
-        return jsonify({"error": "No string provided", "countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
+        return jsonify({"error": "No string provided", "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
