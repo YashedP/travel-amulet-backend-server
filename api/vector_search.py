@@ -79,5 +79,5 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
 
 def turn_JSON_array_to_list(json_array):
     # Remove the surrounding brackets and whitespace
-    return json.loads(json_array)
+    return json.loads(json_array)[0]
         
