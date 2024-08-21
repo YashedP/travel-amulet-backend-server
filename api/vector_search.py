@@ -13,21 +13,24 @@ CORS(app)
 
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
-    # Get the 'text' parameter from the request
-    prompt = request.args.get('prompt')
-    crime_index = request.args.get('crime_index', type=float)
-    download_speed = request.args.get('download_speed', type=int)
-    mobile_download_speed = request.args.get('mobile_download_speed', type=int)
-    tap_water_index = request.args.get('tap_water_index', type=float)
-    continent_list = json.loads(request.args.get('continent_list', type=str))
-    blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
+    try:
+        # Get the 'text' parameter from the request
+        prompt = request.args.get('prompt')
+        crime_index = request.args.get('crime_index', type=float)
+        download_speed = request.args.get('download_speed', type=int)
+        mobile_download_speed = request.args.get('mobile_download_speed', type=int)
+        tap_water_index = request.args.get('tap_water_index', type=float)
+        continent_list = json.loads(request.args.get('continent_list', type=str))
+        blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
 
-    # Check if the 'text' parameter is provided
-    if prompt is not None and crime_index is not None and download_speed and mobile_download_speed is not None is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
-        country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
-        return jsonify({"countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 200
-    else:
-        return jsonify({"error": "No string provided", "countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
+        # Check if the 'text' parameter is provided
+        if prompt is not None and crime_index is not None and download_speed and mobile_download_speed is not None is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
+            country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
+            return jsonify({"countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 200
+        else:
+            return jsonify({"error": "No string provided", "countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
