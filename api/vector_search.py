@@ -26,7 +26,7 @@ def vector_search():
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
     
     # Check if the 'text' parameter is provided
-    if prompt is not None and crime_index is not None and download_speed and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
+    if prompt is not None and crime_index is not None and download_speed is not None and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
         country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         return jsonify({"countries": country}), 200
     else:
