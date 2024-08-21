@@ -78,6 +78,11 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
     return countries
 
 def turn_JSON_array_to_list(json_array):
-    text = json_array[2:-2].split(",").strip("\"")
-    return text
+    # Remove the surrounding brackets and whitespace
+    text = json_array.strip()[1:-1]
+    # Split the string by commas
+    elements = text.split(",")
+    # Strip surrounding quotation marks from each element
+    cleaned_elements = [element.strip().strip('"') for element in elements]
+    return cleaned_elements
         
