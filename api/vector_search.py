@@ -13,21 +13,47 @@ CORS(app)
 
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
-    # Get the 'text' parameter from the request
-    prompt = request.args.get('prompt')
-    crime_index = request.args.get('crime_index', type=float)
-    download_speed = request.args.get('download_speed', type=int)
-    mobile_download_speed = request.args.get('mobile_download_speed', type=int)
-    tap_water_index = request.args.get('tap_water_index', type=float)
-    continent_list = json.loads(request.args.get('continent_list', type=str))
-    blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
-
-    # Check if the 'text' parameter is provided
-    if prompt is not None and crime_index is not None and download_speed and mobile_download_speed is not None is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
+    try:
+        prompt = request.args.get('prompt')
+        if not prompt:
+            raise ValueError("Missing 'prompt' parameter")
+        
+        crime_index = request.args.get('crime_index', type=float)
+        if not crime_index:
+            raise ValueError("Missing 'crime_index' parameter")
+        
+        download_speed = request.args.get('download_speed', type=int)
+        if not download_speed:
+            raise ValueError("Missing 'download_speed' parameter")
+        
+        mobile_download_speed = request.args.get('mobile_download_speed', type=int)
+        if not mobile_download_speed:
+            raise ValueError("Missing 'mobile_download_speed' parameter")
+        
+        tap_water_index = request.args.get('tap_water_index', type=float)
+        if not tap_water_index:
+            raise ValueError("Missing 'tap_water_index' parameter")
+        
+        continent_list = request.args.get('continent_list', type=str)
+        if continent_list:
+            continent_list = json.loads(continent_list)
+        else:  
+            raise ValueError("Missing 'continent_list' parameter")
+        
+        blacklist_countries = request.args.get('blacklist_countries', type=str)
+        if blacklist_countries:
+            blacklist_countries = json.loads(blacklist_countries)
+        else:
+            raise ValueError("Missing 'blacklist_countries' parameter")
+        
         country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         return jsonify({"countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 200
-    else:
-        return jsonify({"error": "No string provided", "countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
+    except ValueError as ve:
+        return jsonify({"error": str(ve)}), 400
+    except json.JSONDecodeError as je:
+        return jsonify({"error": "Invalid JSON format", "details": str(je)}), 400
+    except Exception as e:
+        return jsonify({"error": "An error occurred", "details": str(e)}), 500        
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
