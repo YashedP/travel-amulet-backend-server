@@ -36,7 +36,7 @@ def vector_search():
                         "mobile_download_speed": mobile_download_speed,
                         "tap_water_index": tap_water_index,
                         "continent_list": continent_list,
-                        "blacklist_countries": blacklist_countries
+                        "blacklist_countries": blacklist_countries,
                         "where did I get to?": progress}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
