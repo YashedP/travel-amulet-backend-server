@@ -78,6 +78,6 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
     return countries
 
 def turn_JSON_array_to_list(json_array):
-    text = json_array[2:-2].split(",")
+    text = json_array[2:-2].split(",").strip("\"")
     return text
         
