@@ -16,14 +16,22 @@ progress = ""
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
     # Get the 'text' parameter from the request
+    progress += "0"
     prompt = request.args.get('prompt')
+    progress += "a"
     crime_index = request.args.get('crime_index', type=float)
+    progress += "b"
     download_speed = request.args.get('download_speed', type=int)
+    progress += "c"
     mobile_download_speed = request.args.get('mobile_download_speed', type=int)
+    progress += "d"
     tap_water_index = request.args.get('tap_water_index', type=float)
+    progress += "e"
     continent_list = json.loads(request.args.get('continent_list', type=str))
+    progress += "f"
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
-
+    progress += "g"
+    
     # Check if the 'text' parameter is provided
     if prompt is not None and crime_index is not None and download_speed and mobile_download_speed is not None is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
         country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
