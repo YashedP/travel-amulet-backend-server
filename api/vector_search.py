@@ -11,12 +11,9 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-progress = "a"
-
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
     # Get the 'text' parameter from the request
-    global progress
     prompt = request.args.get('prompt')
     crime_index = request.args.get('crime_index', type=float)
     download_speed = request.args.get('download_speed', type=int)
@@ -30,7 +27,7 @@ def vector_search():
         try:
             country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         except Exception as e:
-            return jsonify({"error": str(e), "progress": progress}), 500
+            return jsonify({"error": str(e)}), 500
         return jsonify({"countries": country}), 200
     else:
         return jsonify({"error": "No string provided",
@@ -40,12 +37,9 @@ def vector_search():
                         "mobile_download_speed": mobile_download_speed,
                         "tap_water_index": tap_water_index,
                         "continent_list": continent_list,
-                        "blacklist_countries": blacklist_countries,
-                        "where did I get to?": progress}), 400
+                        "blacklist_countries": blacklist_countries}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
-    global progress
-    progress += "1"
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
 
     embeddings = OpenAIEmbeddings()
@@ -58,7 +52,6 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
         distance_strategy="cosine",
     )
     
-    progress += "2"
     # Applies the filters to the query
     filters = {
         "Crime_Index": {"$lt": crime_index},
@@ -69,10 +62,8 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
         "Country": {"$nin": blacklist_countries}
     }
 
-    progress += "3"
     docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=10)
     # docs_with_score = vector_store.similarity_search_with_relevance_scores(query, k=20)
-    progress += "4"
     countries = []
     for doc, score in docs_with_score:
         # return doc.page_content
