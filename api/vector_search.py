@@ -22,8 +22,8 @@ def vector_search():
     download_speed = request.args.get('download_speed', type=int)
     mobile_download_speed = request.args.get('mobile_download_speed', type=int)
     tap_water_index = request.args.get('tap_water_index', type=float)
-    continent_list = turn_JSON_array_to_list(request.args.get('continent_list', type=str))
-    blacklist_countries = turn_JSON_array_to_list(request.args.get('blacklist_countries', type=str))
+    continent_list = json.loads(request.args.get('continent_list', type=str))
+    blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
 
     return jsonify({"continent_list": continent_list, "blacklist_countries": blacklist_countries}), 200
     # Check if the 'text' parameter is provided
@@ -76,8 +76,3 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
         countries.append(doc.metadata['Country'])
     
     return countries
-
-def turn_JSON_array_to_list(json_array):
-    # Remove the surrounding brackets and whitespace
-    return json.loads(json_array)[0]
-        
