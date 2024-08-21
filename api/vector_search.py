@@ -29,7 +29,7 @@ def vector_search():
             country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries, lgbtq_rank)
         except Exception as e:
             return jsonify({"error": str(e)}), 500
-        return jsonify({"countries": country, "lgbtq_rank": lgbtq_rank}, 200)
+        return jsonify({"countries": country}, 200)
     else:
         return jsonify({"error": "No string provided",
                         "prompt": prompt,
