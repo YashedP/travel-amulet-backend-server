@@ -24,10 +24,10 @@ def vector_search():
     tap_water_index = request.args.get('tap_water_index', type=float)
     continent_list = json.loads(request.args.get('continent_list', type=str))
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
-    
+    return jsonify({"type": type(continent_list), "value": continent_list}), 200
     # Check if the 'text' parameter is provided
     if prompt is not None and crime_index is not None and download_speed is not None and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
-        country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
+        country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, eval(continent_list), eval(blacklist_countries))
         return jsonify({"countries": country}), 200
     else:
         return jsonify({"error": "No string provided",
