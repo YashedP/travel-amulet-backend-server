@@ -16,8 +16,8 @@ def vector_search():
     # Get the 'text' parameter from the request
     prompt = request.args.get('prompt')
     crime_index = request.args.get('crime_index', type=float)
-    download_speed = request.args.get('download_speed', type=int)
-    mobile_download_speed = request.args('mobile_download_speed', type=int)
+    download_speed = request.args.get('download_speed', type=float)
+    mobile_download_speed = request.args('mobile_download_speed', type=float)
     tap_water_index = request.args.get('tap_water_index', type=float)
     continent_list = json.loads(request.args.get('continent_list', type=str))
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
@@ -27,7 +27,7 @@ def vector_search():
         country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         return jsonify({"countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 200
     else:
-        return jsonify({"error": "No string provided"}), 400
+        return jsonify({"error": "No string provided", "countries": country, "continents_list": continent_list, "blacklist_countries": blacklist_countries}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
     tidb_connection_string = os.environ["TIDB_CONNECTION_STRING"]
