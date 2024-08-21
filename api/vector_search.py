@@ -28,7 +28,7 @@ def vector_search():
     # Check if the 'text' parameter is provided
     if prompt is not None and crime_index is not None and download_speed is not None and mobile_download_speed is not None and tap_water_index is not None and continent_list is not None and blacklist_countries is not None:
         try:
-            country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, eval(continent_list), eval(blacklist_countries))
+            country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         except Exception as e:
             return jsonify({"error": str(e), "progress": progress}), 500
         return jsonify({"countries": country}), 200
