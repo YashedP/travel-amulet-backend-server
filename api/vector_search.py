@@ -11,11 +11,12 @@ import os
 app = Flask(__name__)
 CORS(app)
 
-progress = ""
+progress = "a"
 
 @app.route('/api/vector_search', methods=['GET'])
 def vector_search():
     # Get the 'text' parameter from the request
+    global progress
     progress += "0"
     prompt = request.args.get('prompt')
     progress += "a"
