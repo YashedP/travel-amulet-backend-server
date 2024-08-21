@@ -56,13 +56,13 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
     
     # Applies the filters to the query
     filters = {
-        "Crime_Index": {"$lt": crime_index},
-        "Download_Speed": {"$gt": download_speed},
+        "Crime_Index": {"$lte": crime_index},
+        "Download_Speed": {"$gte": download_speed},
         "Mobile_Download_Speed": {"$gt": mobile_download_speed},
-        "Tap_Water_Index": {"$gt": tap_water_index},
+        "Tap_Water_Index": {"$gte": tap_water_index},
         "Continent": {"$nin": continent_list},
         "Country": {"$nin": blacklist_countries},
-        "LGBTQ_Rank": {"$lt": lgbtq_rank},
+        "LGBTQ_Rank": {"$gte": lgbtq_rank},
     }
 
     docs_with_score = vector_store.similarity_search_with_relevance_scores(prompt, filter=filters, k=10)
