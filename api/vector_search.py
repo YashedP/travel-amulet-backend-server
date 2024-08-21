@@ -31,17 +31,9 @@ def vector_search():
             country = get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries)
         except Exception as e:
             return jsonify({"error": str(e), "progress": progress}), 500
-        return jsonify({"countries": country}), 200
+        return jsonify({"error": "Vector Search failed"}), 200
     else:
-        return jsonify({"error": "No string provided",
-                        "prompt": prompt,
-                        "crime_index": crime_index,
-                        "download_speed": download_speed,
-                        "mobile_download_speed": mobile_download_speed,
-                        "tap_water_index": tap_water_index,
-                        "continent_list": continent_list,
-                        "blacklist_countries": blacklist_countries,
-                        "where did I get to?": progress}), 400
+        return jsonify({"error": "Something went wrong"}), 400
     
 def get_countries(prompt, crime_index, download_speed, mobile_download_speed, tap_water_index, continent_list, blacklist_countries):
     global progress
