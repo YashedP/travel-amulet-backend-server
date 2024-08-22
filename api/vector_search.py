@@ -74,5 +74,5 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
     
     return countries
 
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000, debug=True)
+# if __name__ == '__main__':
+#     app.run(host='0.0.0.0', port=5000, debug=True)
