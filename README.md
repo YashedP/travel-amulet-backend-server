@@ -51,7 +51,7 @@ Here are the steps to run the project locally if you want to develop your own pr
    ```sh
    pip install -r requirements.txt
    ```
-4. Enter your API keys and database URL in a `.env.local' file
+4. Enter your API keys and database URL in a `.env.local` file
    ```js
    DATABASE_URL = "ENTER YOUR DATABASE URL"
    OPENAI_API_KEY = "ENTER YOUR OPENAI API KEY"
