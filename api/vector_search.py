@@ -73,3 +73,6 @@ def get_countries(prompt, crime_index, download_speed, mobile_download_speed, ta
         countries.append(doc.metadata['Country'])
     
     return countries
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000, debug=True)
