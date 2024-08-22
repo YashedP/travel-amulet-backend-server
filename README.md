@@ -20,10 +20,10 @@
 </div>
 
 ## About the Project
-### To see more about the project visit <a href="https://github.com/josephHelfenbein/travel-amulet">travel-amulet</a>!
+### To see more about the main project page, visit <a href="https://github.com/josephHelfenbein/travel-amulet">travel-amulet</a>!
 
 ### What is this backend server doing?
-This server houses the Vector Search API that the main Vercel server is using. Due to the limitation of Vercel, it is impossible to have both NextJS and Python API endpoints in one Vercel server. To combat this impediment, an another Vercel server is used to house the API to take all the metadata filters and find the most similar country and send back the most appropriate country.
+This server houses the Vector Search API, the main Vercel server's use. Due to Vercel's limitations, it is impossible to have both NextJS and Python API endpoints on one Vercel server. To combat this impediment, another Vercel server is used to house the API to take all the metadata filters, find the most similar country, and send back the most appropriate country.
 
 
 
