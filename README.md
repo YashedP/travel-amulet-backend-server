@@ -58,7 +58,7 @@ Here are the steps to run the project locally if you want to develop your own pr
    ```
 5. You can run the website locally with:
    ```sh
-   python 
+   python .\api\vector_search.py
    ```
    or, if hosting on Vercel, with
    ```sh
