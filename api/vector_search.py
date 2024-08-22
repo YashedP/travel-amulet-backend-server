@@ -16,8 +16,8 @@ def vector_search():
     # Get the 'text' parameter from the request
     prompt = request.args.get('prompt')
     crime_index = request.args.get('crime_index', type=float)
-    download_speed = request.args.get('download_speed', type=int)
-    mobile_download_speed = request.args.get('mobile_download_speed', type=int)
+    download_speed = request.args.get('download_speed', type=float)
+    mobile_download_speed = request.args.get('mobile_download_speed', type=float)
     tap_water_index = request.args.get('tap_water_index', type=float)
     continent_list = json.loads(request.args.get('continent_list', type=str))
     blacklist_countries = json.loads(request.args.get('blacklist_countries', type=str))
