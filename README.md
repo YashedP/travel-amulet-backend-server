@@ -20,18 +20,29 @@
 </div>
 
 ## About the Project
-### To see more about the project visit <a href="https://github.com/josephHelfenbein/travel-amulet">travel-amulet</a>!
+### To see more about the main project page, visit <a href="https://github.com/josephHelfenbein/travel-amulet">travel-amulet</a>!
 
 ### What is this backend server doing?
-This server houses the Vector Search API that the main Vercel server is using. Due to the limitation of Vercel, it is impossible to have both NextJS and Python API endpoints in one Vercel server. To combat this impediment, an another Vercel server is used to house the API to take all the metadata filters and find the most similar country and send back the most appropriate country.
+This server houses the Vector Search API, the main Vercel server's use. Due to Vercel's limitations, it is impossible to have both NextJS and Python API endpoints on one Vercel server. To combat this impediment, another Vercel server is used to house the API to take all the metadata filters, find the most similar country, and send back the most appropriate country.
+
+
+
+
+### Built With
 
 * [![Flask][Flask]][Flask-url]
+
+### Powered By
+
+* <a href="https://tidbcloud.com/free-trial">TiDB Cloud Serverless</a>
+* <a href="https://vercel.com">Vercel</a>
+
 
 # Getting Started
 Here are the steps to run the project locally if you want to develop your own project
 ## Installation
-> **Note: Continues from step 3 on the <a href="https://github.com/josephHelfenbein/travel-amulet">main page</a>
-1. Get an openAI API key at [https://openai.com/api](https://openai.com/api)
+> **Note**: Continues from step 3 on the <a href="https://github.com/josephHelfenbein/travel-amulet">main page</a>
+1. Get an OpenAI API key at [https://openai.com/api](https://openai.com/api)
 2. Clone the repo
    ```sh
    git clone https://github.com/YashedP/travel-amulet-backend-server.git
@@ -40,14 +51,14 @@ Here are the steps to run the project locally if you want to develop your own pr
    ```sh
    pip install -r requirements.txt
    ```
-4. Enter your API keys and database URL in a `.env.local' file
+4. Enter your API keys and database URL in a `.env.local` file
    ```js
    DATABASE_URL = "ENTER YOUR DATABASE URL"
    OPENAI_API_KEY = "ENTER YOUR OPENAI API KEY"
    ```
 5. You can run the website locally with:
    ```sh
-   python 
+   python .\api\vector_search.py
    ```
    or, if hosting on Vercel, with
    ```sh
