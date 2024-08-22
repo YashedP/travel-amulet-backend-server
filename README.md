@@ -27,6 +27,12 @@ This server houses the Vector Search API that the main Vercel server is using. D
 
 * [![Flask][Flask]][Flask-url]
 
+### Powered By
+
+* <a href="https://tidbcloud.com/free-trial">TiDB Cloud Serverless</a>
+* <a href="https://vercel.com">Vercel</a>
+
+
 # Getting Started
 Here are the steps to run the project locally if you want to develop your own project
 ## Installation
