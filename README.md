@@ -41,7 +41,7 @@ This server houses the Vector Search API that the main Vercel server is using. D
 # Getting Started
 Here are the steps to run the project locally if you want to develop your own project
 ## Installation
-> **Note: Continues from step 3 on the <a href="https://github.com/josephHelfenbein/travel-amulet">main page</a>
+> **Note**: Continues from step 3 on the <a href="https://github.com/josephHelfenbein/travel-amulet">main page</a>
 1. Get an OpenAI API key at [https://openai.com/api](https://openai.com/api)
 2. Clone the repo
    ```sh
